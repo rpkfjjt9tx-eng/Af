@@ -3,11 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>💜 Our Story</title>
+<title>💜 Our Love Story</title>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;500;700&display=swap');
-
 body{
   margin:0;
   font-family:Quicksand;
@@ -24,7 +22,7 @@ body{
   100%{background-position:0% 50%}
 }
 
-/* NETFLIX INTRO */
+/* INTRO */
 #intro{
   position:fixed;
   width:100%;
@@ -44,7 +42,7 @@ body{
   100%{opacity:0;visibility:hidden}
 }
 
-/* PAGES */
+/* PAGE */
 .page{
   display:none;
   height:100vh;
@@ -54,7 +52,7 @@ body{
   text-align:center;
   padding:20px;
   background:rgba(0,0,0,0.25);
-  backdrop-filter:blur(12px);
+  backdrop-filter:blur(10px);
 }
 
 .active{display:flex;}
@@ -73,26 +71,23 @@ input{
   padding:10px;
   width:80%;
   border-radius:10px;
-  border:none;
 }
 
 /* CHAT */
-#chatBox{
-  width:90%;
-  max-width:400px;
-  text-align:left;
-}
-
 .chat-msg{
   background:#dcf8c6;
   color:black;
   padding:10px;
   margin:6px;
   border-radius:10px;
-  width:fit-content;
+  max-width:80%;
+  animation:pop 0.3s ease;
 }
 
-.me{margin-left:auto;background:white}
+@keyframes pop{
+  from{transform:scale(0.8);opacity:0}
+  to{transform:scale(1);opacity:1}
+}
 
 /* ENVELOPE */
 .envelope{
@@ -130,7 +125,7 @@ input{
   max-width:420px;
   border-radius:10px;
   font-family:Georgia;
-  line-height:1.7;
+  line-height:1.6;
 }
 
 /* HEARTS */
@@ -145,19 +140,71 @@ input{
   to{transform:translateY(110vh);opacity:0}
 }
 
-/* RING */
+/* FINAL CINEMA */
+.cinema{
+  height:220px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+.stage{
+  position:relative;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:70px;
+}
+
+.girl,.boy{
+  font-size:55px;
+  animation:float 2s infinite;
+}
+
+.boy{animation-delay:0.3s;}
+
 .ring{
-  font-size:80px;
-  animation:glow 1.2s infinite;
+  font-size:55px;
+  position:absolute;
+  animation:ringMove 3.5s ease-in-out forwards;
+  filter:drop-shadow(0 0 10px #ffb6ff);
 }
 
-@keyframes glow{
-  50%{transform:scale(1.2)}
+@keyframes float{
+  0%{transform:translateY(0)}
+  100%{transform:translateY(-10px)}
 }
 
-/* COUNTDOWN */
-#timer{
-  font-size:28px;
+@keyframes ringMove{
+  0%{
+    transform:translateX(-140px) translateY(60px) scale(0.5);
+    opacity:0;
+  }
+  50%{opacity:1;}
+  100%{
+    transform:translateX(90px) translateY(0px) scale(1);
+    opacity:1;
+  }
+}
+
+.heartbeat{
+  position:absolute;
+  bottom:-30px;
+  animation:beat 1s infinite;
+}
+
+@keyframes beat{
+  50%{transform:scale(1.3)}
+}
+
+.fade{
+  animation:fadeIn 2s ease forwards;
+  opacity:0;
+}
+
+@keyframes fadeIn{
+  from{opacity:0;transform:translateY(20px)}
+  to{opacity:1;transform:translateY(0)}
 }
 
 </style>
@@ -165,109 +212,119 @@ input{
 
 <body>
 
-<!-- NETFLIX INTRO -->
-<div id="intro">💜 Netflix Presents: Our Story</div>
+<div id="intro">🎬 Netflix Presents: Our Love Story 💜</div>
 
-<!-- PAGE 1 -->
+<!-- 1 -->
 <div class="page active" id="p1">
   <h1>💜 A Story Begins</h1>
   <button onclick="next()">Start</button>
 </div>
 
-<!-- PAGE 2 PASSWORD -->
+<!-- 2 -->
 <div class="page" id="p2">
-  <h2>🔐 Enter Password</h2>
+  <h2>🔐 Password</h2>
   <input id="pass">
   <button onclick="check()">Unlock</button>
 </div>
 
-<!-- PAGE 3 COUNTDOWN -->
+<!-- 3 -->
 <div class="page" id="p3">
   <h2>⏳ Countdown</h2>
   <div id="timer"></div>
   <button onclick="next()">Next</button>
 </div>
 
-<!-- PAGE 4 MUSIC -->
+<!-- 4 -->
 <div class="page" id="p4">
-  <h2>🎵 Our Song</h2>
+  <h2>🎵 The song I imagined with you</h2>
+  <button onclick="play1()">Play</button>
 
-  <button onclick="playMusic()">Play</button>
-
-  <iframe id="yt" width="300" height="200"
+  <iframe id="yt1" width="300" height="200"
   src="https://www.youtube.com/embed/rZYhjdqzQbM"></iframe>
 
   <button onclick="next()">Next</button>
 </div>
 
-<!-- PAGE 5 CHAT -->
+<!-- 5 -->
 <div class="page" id="p5">
-  <h2>💬 WhatsApp Memories</h2>
-  <div id="chatBox"></div>
-  <button onclick="startChat()">Start Chat</button>
-  <button onclick="next()">Next</button>
-</div>
+  <h2>💌 Favourite Thing</h2>
+  <button onclick="alert('Kinder Joy 🍫')">Answer</button>
 
-<!-- PAGE 6 QUESTION -->
-<div class="page" id="p6">
-  <h2>💌 Question</h2>
-
-  <p>What would you like to tell me?</p>
+  <h3>What would you like to tell me?</h3>
   <input id="msg">
   <button onclick="send()">Send</button>
 
   <p id="reply"></p>
-
   <button onclick="next()">Next</button>
 </div>
 
-<!-- PAGE 7 ENVELOPE -->
+<!-- 6 -->
+<div class="page" id="p6">
+  <h2>💬 WhatsApp Memories</h2>
+  <button onclick="chat()">Start Chat</button>
+  <div id="chat"></div>
+  <button onclick="next()">Next</button>
+</div>
+
+<!-- 7 -->
 <div class="page" id="p7">
-  <h2>💌 Vintage Letter</h2>
+  <h2>💌 Letter</h2>
 
   <div class="envelope"></div>
   <button onclick="openLetter()">Open</button>
 
   <div class="popup" id="pop">
     <div class="letter">
-
-i don’t even know when it started…  
-but you became my constant 🤍  
-
-i miss you 🫂  
-i love you deeply 💍  
-
-i love you, purusha 🤍  
-you are my sexiest man ever 🫦❤️‍🔥
-
-<br><br>
-<button onclick="closeLetter()">Close</button>
-
+i love you purusha 🤍  
+you are my safe place 🫂  
+you changed my life in the softest way 💜  
+you are my forever 🫦❤️‍🔥  
     </div>
   </div>
 
   <button onclick="next()">Next</button>
 </div>
 
-<!-- PAGE 8 PROPOSAL -->
+<!-- 8 -->
 <div class="page" id="p8">
-  <h1 class="ring">💍</h1>
-  <h2>Will you stay forever?</h2>
-
+  <h1>💍 Will you stay forever?</h1>
   <button onclick="yes()">YES 🤍</button>
   <button onclick="no()">NO 💔</button>
+</div>
+
+<!-- 9 FINAL CINEMATIC -->
+<div class="page" id="p9">
+
+  <div class="cinema">
+    <div class="stage">
+      <div class="girl">💗</div>
+      <div class="boy">❤️</div>
+      <div class="ring">💍</div>
+      <div class="heartbeat">🤍</div>
+    </div>
+  </div>
+
+  <h2 class="fade">The song I felt with you 🤍</h2>
+
+  <p class="fade">i love you purusha 🤍</p>
+
+  <button onclick="playFinal()">▶ Play Final Song</button>
+
+  <iframe id="yt2" width="300" height="200"
+  src="https://www.youtube.com/embed/5PuYFzMTFOY"></iframe>
+
+  <p class="fade">💜 some stories don’t end… they stay</p>
+
 </div>
 
 <script>
 
 let c=1;
-
 function show(p){
   document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));
   document.getElementById(p).classList.add('active');
 }
-
-function next(){c++;if(c>8)c=8;show("p"+c);}
+function next(){c++;if(c>9)c=9;show("p"+c);}
 
 /* PASSWORD */
 function check(){
@@ -276,46 +333,44 @@ function check(){
   }else alert("wrong 💔");
 }
 
-/* MUSIC FIX */
-function playMusic(){
-  document.getElementById("yt").src =
-  "https://www.youtube.com/embed/rZYhjdqzQbM?autoplay=1";
+/* SONGS */
+function play1(){
+  document.getElementById("yt1").src+="?autoplay=1";
+}
+function playFinal(){
+  document.getElementById("yt2").src+="?autoplay=1";
 }
 
 /* CHAT */
-async function startChat(){
-  let box=document.getElementById("chatBox");
-  box.innerHTML="typing...";
-
-  await new Promise(r=>setTimeout(r,1000));
-  box.innerHTML="";
-
-  let msgs=[
-    "hi",
-    "i love you",
-    "i love you too",
-    "i miss you",
-    "i miss you too",
-    "kunji pulla"
-  ];
-
-  for(let m of msgs){
-    await new Promise(r=>setTimeout(r,700));
-    let d=document.createElement("div");
-    d.className="chat-msg";
-    d.innerText=m;
-    box.appendChild(d);
-  }
+function chat(){
+  document.getElementById("chat").innerHTML=`
+  <div class="chat-msg">💗 hi iphone</div>
+  <div class="chat-msg" style="margin-left:auto;background:#ffe6f2;">❤️ hi</div>
+  <div class="chat-msg">💗 iloveyousomuch d</div>
+  <div class="chat-msg" style="margin-left:auto;background:#ffe6f2;">❤️ love you more da</div>
+  <div class="chat-msg">💗 miss you kunji pulla</div>
+  <div class="chat-msg" style="margin-left:auto;background:#ffe6f2;">❤️ miss you too da</div>`;
 }
 
-/* QUESTION SAVE (SheetDB READY HOOK) */
+/* SHEETDB */
 function send(){
-  document.getElementById("reply").innerText="🤍 saved...";
+  fetch("https://sheetdb.io/api/v1/o7b1b7b9ajvgq",{
+    method:"POST",
+    headers:{"Content-Type":"application/json"},
+    body:JSON.stringify({
+      data:[{
+        message:document.getElementById("msg").value,
+        time:new Date().toLocaleString()
+      }]
+    })
+  });
+  document.getElementById("reply").innerText="🤍 sent";
 }
 
-/* ENVELOPE */
-function openLetter(){document.getElementById("pop").style.display="flex";}
-function closeLetter(){document.getElementById("pop").style.display="none";}
+/* LETTER */
+function openLetter(){
+  document.getElementById("pop").style.display="flex";
+}
 
 /* FINAL */
 function yes(){alert("YES 🤍💍")}
@@ -323,25 +378,11 @@ function no(){alert("💔")}
 
 /* COUNTDOWN */
 let target=new Date("2026-03-01").getTime();
-
 setInterval(()=>{
   let now=new Date().getTime();
-  let diff=target-now;
-
-  let d=Math.floor(diff/(1000*60*60*24));
+  let d=Math.floor((target-now)/(1000*60*60*24));
   document.getElementById("timer").innerText=d+" days left 💜";
 },1000);
-
-/* HEARTS */
-setInterval(()=>{
-  let h=document.createElement("div");
-  h.className="heart";
-  h.innerText="💜";
-  h.style.left=Math.random()*100+"vw";
-  h.style.animationDuration=(3+Math.random()*5)+"s";
-  document.body.appendChild(h);
-  setTimeout(()=>h.remove(),8000);
-},300);
 
 </script>
 
