@@ -22,18 +22,6 @@ body{
   100%{background-position:0% 50%}
 }
 
-/* NETFLIX INTRO */
-#intro{
-  position:fixed;
-  width:100%;
-  height:100%;
-  background:black;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  z-index:999;
-}
-
 /* PAGES */
 .page{
   display:none;
@@ -59,56 +47,19 @@ button{
 }
 
 /* CHAT */
-.chat-box{
-  width:100%;
-  height:55vh;
-  overflow-y:auto;
-  display:flex;
-  flex-direction:column;
-}
-
-/* WhatsApp bubbles */
-.bubble{
-  max-width:70%;
+.chat-msg{
+  background:#dcf8c6;
+  color:black;
   padding:10px;
   margin:6px;
   border-radius:10px;
-  animation:pop 0.3s ease;
-  font-size:14px;
+  max-width:80%;
+  animation:fade 0.3s ease;
 }
 
-.left{
-  background:white;
-  color:black;
-  align-self:flex-start;
-}
-
-.right{
-  background:#dcf8c6;
-  color:black;
-  align-self:flex-end;
-}
-
-@keyframes pop{
-  from{transform:scale(0.9);opacity:0}
-  to{transform:scale(1);opacity:1}
-}
-
-/* HEADER */
-.header{
-  text-align:center;
-  margin-bottom:10px;
-}
-.dp{
-  width:50px;
-  height:50px;
-  border-radius:50%;
-  background:#fff;
-  margin:auto;
-}
-.online{
-  color:#00ff9d;
-  font-size:12px;
+@keyframes fade{
+  from{opacity:0;transform:translateY(10px)}
+  to{opacity:1;transform:translateY(0)}
 }
 
 /* LETTER */
@@ -137,16 +88,36 @@ button{
   line-height:1.9;
   font-size:15px;
   white-space:pre-wrap;
+  position:relative;
+}
+
+/* bottom buttons */
+.bottomBtns{
+  margin-top:15px;
+}
+
+.closeBtn,.submitBtn{
+  width:100%;
+  padding:12px;
+  margin-top:10px;
+  border:none;
+  border-radius:10px;
+  font-weight:bold;
+}
+
+.closeBtn{background:#6a5acd;color:white;}
+.submitBtn{background:#ff4d8d;color:white;}
+
+/* RING */
+@keyframes ringPop{
+  0%{transform:translate(-50%,-50%) scale(0);opacity:0}
+  50%{transform:translate(-50%,-50%) scale(1.5);opacity:1}
+  100%{transform:translate(-50%,-50%) scale(0);opacity:0}
 }
 </style>
 </head>
 
 <body>
-
-<!-- INTRO -->
-<div id="intro">
-  <h1>💜 Netflix Style Intro...</h1>
-</div>
 
 <!-- PAGE 1 -->
 <div class="page active" id="p1">
@@ -154,129 +125,187 @@ button{
   <button onclick="next()">Start</button>
 </div>
 
-<!-- PAGE 2 CHAT -->
+<!-- PAGE 2 -->
 <div class="page" id="p2">
-
-  <div class="header">
-    <div class="dp"></div>
-    <h3>Sumi Dhatha</h3>
-    <div id="status" class="online">🟢 online</div>
-  </div>
-
-  <div id="chat" class="chat-box"></div>
-
-  <button onclick="chat()">Start Chat</button>
-  <button onclick="next()">Next</button>
-
+  <h2>Password</h2>
+  <input id="pass">
+  <button onclick="check()">Unlock</button>
 </div>
 
-<!-- PAGE 3 LETTER -->
+<!-- PAGE 3 -->
 <div class="page" id="p3">
-<h2>💌 Letter</h2>
-
-<button onclick="openLetter()">Open</button>
-
-<div class="popup" id="pop">
-<div class="letter">
-
-i don’t even know when it started, but somewhere between the quiet moments and the chaos of my days, you became my constant… the kind of feeling that doesn’t need loud words to exist 🤍 i carry you in my thoughts without trying, and i miss you in ways i can’t always explain. some days feel heavier without you, like something important is missing, and no distraction really fixes it 🫶
-
-and i know you have your own world, your own people, your family… and that’s okay. it doesn’t change what i feel. the love you show me, the way you’re there for me in your own way — it’s enough for my heart 🫀 i don’t need more than what’s real between us.
-
-the love you gave me and the way you treat me… i’ve honestly never experienced anything like it in my life 🤍 it feels so pure, so real, like something i didn’t even know i needed until you came into my world. you made me feel seen, understood, and cared for in a way that stays with me even in your absence 🫶
-
-and that “fake” marriage we joked about… maybe it was just a moment to you, something light, something playful — but for me, it felt different. in my heart, it felt like my first. not because of the words, but because of the way i feel about you. it wasn’t pretend to me… it was something soft, something real that i quietly held onto 🤍
-
-in my imagination… it’s you and me in a quiet little house, filled with soft moments and laughter, and a tiny baby who has pieces of both of us 🥺🫂 it’s not even about a perfect life… just simple things — waking up next to you, small talks, shared smiles, holding our baby together like we created our own little world 🤍
-
-maybe it’s just my thoughts running away sometimes… but in that space, everything feels calm, safe, and complete — because it’s you
-
-sometimes i sit and think about it, and it still feels unreal… how someone can be this gentle with my heart. no matter what happens, that feeling is something i’ll always hold onto, because it changed me in the softest, most beautiful way 🌙💫
-
-i just hope these days pass softly… that whatever distance or silence is between us fades into something warm again 🌙 because what i feel for you isn’t temporary, it’s the kind that stays even when things aren’t perfect 💫
-
-i love you so much, purusha 🤍
-
-and you are my sexiest man ever 🫦❤️‍🔥
-
-</div>
-</div>
-
-<button onclick="next()">Next</button>
+  <h2>Countdown</h2>
+  <div id="timer"></div>
+  <button onclick="next()">Next</button>
 </div>
 
 <!-- PAGE 4 -->
 <div class="page" id="p4">
-<h1>💍 Will you stay forever?</h1>
-<button onclick="alert('YES 🤍💍')">YES</button>
+  <h2>Song 1</h2>
+  <iframe width="300" height="200" src="https://www.youtube.com/embed/rZYhjdqzQbM"></iframe>
+  <button onclick="next()">Next</button>
 </div>
 
-<!-- END -->
+<!-- PAGE 5 -->
 <div class="page" id="p5">
-<h1>💜 The End</h1>
+  <h2>Song 2 💫</h2>
+  <iframe width="300" height="200" src="https://www.youtube.com/embed/5PuYFzMTFOY"></iframe>
+  <button onclick="next()">Next</button>
+</div>
+
+<!-- PAGE 6 CHAT -->
+<div class="page" id="p6">
+  <h2>💬 Chat</h2>
+  <button onclick="chat()">Start Chat</button>
+  <div id="chat"></div>
+  <button onclick="next()">Next</button>
+</div>
+
+<!-- PAGE 7 LETTER -->
+<div class="page" id="p7">
+  <h2>💌 Letter</h2>
+
+  <button onclick="openLetter()">Open 💌</button>
+
+  <div class="popup" id="pop">
+    <div class="letter">
+
+i don’t even know when it started, but somewhere between the quiet moments and the chaos of my days, you became my constant… the kind of feeling that doesn’t need loud words to exist 🤍 i carry you in my thoughts without trying, and i miss you in ways i can’t always explain. some days feel heavier without you, like something important is missing, and no distraction really fixes it 🫶
+
+and i know you have your own world, your own people, your family… and that’s okay. it doesn’t change what i feel. the love you show me, the way you’re there for me in your own way — it’s enough for my heart 🫀
+
+the love you gave me and the way you treat me… i’ve honestly never experienced anything like it in my life 🤍
+
+and that “fake” marriage we joked about… maybe it was just a moment to you, but for me it felt real 🤍
+
+i love you so much, purusha 🤍  
+and you are my sexiest man ever 🫦❤️‍🔥
+
+<div class="bottomBtns">
+<button class="closeBtn" onclick="closeLetter()">Close</button>
+<button class="submitBtn" onclick="submitLove()">Submit 💌</button>
+</div>
+
+    </div>
+  </div>
+</div>
+
+<!-- PAGE 8 -->
+<div class="page" id="p8">
+  <h1>💍 Will you stay forever?</h1>
+  <button onclick="alert('YES 🤍💍')">YES</button>
 </div>
 
 <script>
 
 let c=1;
 function next(){
-  c++;
-  if(c>5)c=5;
+  c++; if(c>8)c=8;
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.getElementById("p"+c).classList.add('active');
+}
+
+function check(){
+  if(pass.value==="01032026") next();
 }
 
 /* CHAT */
 async function chat(){
   let box=document.getElementById("chat");
-  let status=document.getElementById("status");
-
   box.innerHTML="";
 
-  function add(text, side){
+  function add(t,side){
     let d=document.createElement("div");
-    d.className="bubble "+side;
-    d.innerText=text;
+    d.className="chat-msg";
+    d.style.marginLeft = side==="right" ? "auto" : "0";
+    d.innerText=t;
     box.appendChild(d);
-    box.scrollTop=box.scrollHeight;
   }
 
-  function wait(ms){ return new Promise(r=>setTimeout(r,ms)); }
-
-  status.innerText="typing...";
-  await wait(1200);
-
   add("💗 hi iphone","left");
-  status.innerText="online";
-  await wait(800);
-
+  await new Promise(r=>setTimeout(r,800));
   add("❤️ hi","right");
-  await wait(800);
-
-  status.innerText="typing...";
-  await wait(1000);
-
+  await new Promise(r=>setTimeout(r,800));
   add("💗 iloveyou da 🫶","left");
-  status.innerText="online";
-  await wait(800);
-
+  await new Promise(r=>setTimeout(r,800));
   add("❤️ love you more 💚","right");
-  await wait(800);
-
-  add("💗 miss you kunji pulla🥺","left");
-  await wait(800);
-
-  add("❤️ miss you too da purusha 💚","right");
-  await wait(800);
-
-   add("💗 .💚","right");
-  await wait(800);
-
 }
 
+/* LETTER */
 function openLetter(){
-  document.getElementById("pop").style.display="flex";
+  pop.style.display="flex";
 }
+
+function closeLetter(){
+  pop.style.display="none";
+}
+
+/* SUBMIT FLOW */
+function submitLove(){
+
+  let typing = document.createElement("div");
+  typing.innerText = "💬 he is reading your letter...";
+  typing.style.position="fixed";
+  typing.style.bottom="20px";
+  typing.style.left="50%";
+  typing.style.transform="translateX(-50%)";
+  typing.style.background="#111";
+  typing.style.padding="10px";
+  typing.style.borderRadius="10px";
+  document.body.appendChild(typing);
+
+  setTimeout(()=>{
+
+    typing.remove();
+
+    let ring = document.createElement("div");
+    ring.innerHTML="💍";
+    ring.style.position="fixed";
+    ring.style.top="50%";
+    ring.style.left="50%";
+    ring.style.transform="translate(-50%,-50%)";
+    ring.style.fontSize="70px";
+    ring.style.animation="ringPop 1s ease";
+    document.body.appendChild(ring);
+
+    setTimeout(()=>ring.remove(),1000);
+
+    fetch("https://sheetdb.io/api/v1/YOUR_SHEETDB_ID",{
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({data:{msg:"love sent 💜",time:new Date()}})
+    });
+
+    let success=document.createElement("div");
+    success.innerText="💖 Sent Successfully 💖";
+    success.style.position="fixed";
+    success.style.top="0";
+    success.style.left="0";
+    success.style.width="100%";
+    success.style.height="100%";
+    success.style.background="rgba(0,0,0,0.9)";
+    success.style.display="flex";
+    success.style.justifyContent="center";
+    success.style.alignItems="center";
+    success.style.fontSize="22px";
+
+    document.body.appendChild(success);
+
+    setTimeout(()=>{
+      success.style.opacity="0";
+      setTimeout(()=>success.remove(),1000);
+    },2000);
+
+  },2000);
+}
+
+/* TIMER */
+let t=new Date("2026-03-01").getTime();
+setInterval(()=>{
+  let now=new Date().getTime();
+  document.getElementById("timer").innerText =
+  Math.floor((t-now)/(1000*60*60*24))+" days left 💜";
+},1000);
 
 </script>
 
