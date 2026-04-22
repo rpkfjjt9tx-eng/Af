@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>💜 Cinematic Story</title>
+<title>💜 Our Story</title>
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;500;700&display=swap');
@@ -11,38 +11,36 @@
 body{
   margin:0;
   font-family:Quicksand;
-  color:white;
   overflow:hidden;
-
-  background: linear-gradient(135deg, #c8a2ff, #a78bfa, #fbc2eb, #d9a7ff);
-  background-size: 400% 400%;
-  animation: bgMove 10s ease infinite;
+  color:white;
+  background:linear-gradient(135deg,#c8a2ff,#a78bfa,#fbc2eb);
+  background-size:400% 400%;
+  animation:bg 10s infinite;
 }
 
-@keyframes bgMove {
-  0% {background-position:0% 50%;}
-  50% {background-position:100% 50%;}
-  100% {background-position:0% 50%;}
+@keyframes bg{
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
 }
 
 .page{
   display:none;
   height:100vh;
-  width:100%;
   justify-content:center;
   align-items:center;
   flex-direction:column;
   text-align:center;
   padding:20px;
-  background: rgba(255,255,255,0.08);
-  backdrop-filter: blur(10px);
+  background:rgba(0,0,0,0.2);
+  backdrop-filter:blur(10px);
 }
 
 .active{display:flex;}
 
 button{
   padding:12px 18px;
-  margin:10px;
+  margin:6px;
   border:none;
   border-radius:25px;
   background:#b78cff;
@@ -51,27 +49,9 @@ button{
 }
 
 input{
-  padding:12px;
+  padding:10px;
   width:80%;
   border-radius:10px;
-  border:1px solid #ccc;
-  text-align:center;
-}
-
-/* FLOATING EMOJIS */
-.floating {
-  position: fixed;
-  top: -50px;
-  font-size: 24px;
-  animation: fall linear infinite;
-  opacity: 0.8;
-  pointer-events: none;
-}
-
-@keyframes fall {
-  0% {transform: translateY(-10vh); opacity:0;}
-  10% {opacity:1;}
-  100% {transform: translateY(110vh); opacity:0;}
 }
 
 /* CHAT */
@@ -85,25 +65,20 @@ input{
   background:#dcf8c6;
   color:black;
   padding:10px;
-  margin:8px;
+  margin:6px;
   border-radius:10px;
   width:fit-content;
-  max-width:80%;
 }
 
-.me{
-  margin-left:auto;
-  background:white;
-}
+.me{margin-left:auto;background:white}
 
 /* ENVELOPE */
 .envelope{
   width:220px;
   height:140px;
   background:#e3c08f;
-  margin:20px auto;
-  border-radius:10px;
   position:relative;
+  border-radius:10px;
 }
 
 .envelope:before{
@@ -114,7 +89,7 @@ input{
   border-top:80px solid #caa06a;
 }
 
-/* POPUP LETTER */
+/* POPUP */
 .popup{
   display:none;
   position:fixed;
@@ -126,19 +101,26 @@ input{
 }
 
 .letter{
-  background:#fff3df;
-  color:#333;
-  padding:20px;
+  background:linear-gradient(#f6e7c1,#f1d9a0);
+  color:#3b2f2f;
+  padding:25px;
   width:85%;
-  max-width:400px;
-  border-radius:10px;
-  font-family:serif;
-  line-height:1.6;
+  max-width:420px;
+  border-radius:8px;
+  font-family:Georgia,serif;
+  line-height:1.7;
 }
 
-/* RING */
-.ring{
-  font-size:80px;
+/* HEARTS */
+.heart{
+  position:fixed;
+  top:-20px;
+  font-size:20px;
+  animation:fall linear infinite;
+}
+
+@keyframes fall{
+  to{transform:translateY(110vh);opacity:0}
 }
 
 </style>
@@ -150,61 +132,81 @@ input{
 <div class="page active" id="p1">
   <h1>💜 A Story Begins</h1>
   <button onclick="next()">Start</button>
+  <button onclick="prev()">⬅</button>
 </div>
 
 <!-- PAGE 2 -->
 <div class="page" id="p2">
-  <h2>🔐 Unlock Memory</h2>
-  <input id="pass" type="password" placeholder="••••••">
+  <h2>🔐 Password</h2>
+  <input id="pass">
   <button onclick="check()">Unlock</button>
+  <button onclick="prev()">⬅</button>
+  <button onclick="next()">➡</button>
 </div>
 
-<!-- PAGE 3 -->
+<!-- PAGE 3 MUSIC -->
 <div class="page" id="p3">
-  <h2>🎵 Our Sound</h2>
+  <h2>🎵 Music</h2>
 
-  <button onclick="playMusic()">Play Music</button>
+  <button onclick="playMusic()">Play</button>
 
-  <iframe id="yt" width="0" height="0"
+  <iframe id="yt" width="300" height="200"
   src="https://www.youtube.com/embed/qOTEK-VsYI0"></iframe>
 
-  <button onclick="next()">Continue</button>
+  <br>
+  <button onclick="prev()">⬅</button>
+  <button onclick="next()">➡</button>
 </div>
 
 <!-- PAGE 4 CHAT -->
 <div class="page" id="p4">
-  <h2>💬 WhatsApp Memory</h2>
+  <h2>💬 Chat</h2>
 
   <div id="chatBox"></div>
-
   <button onclick="startChat()">Start Chat</button>
-  <button onclick="next()">Next</button>
+
+  <br>
+  <button onclick="prev()">⬅</button>
+  <button onclick="next()">➡</button>
 </div>
 
-<!-- PAGE 5 ENVELOPE -->
+<!-- PAGE 5 MESSAGE + API -->
 <div class="page" id="p5">
-  <h2>💌 Something I never said</h2>
+  <h2>💌 Tell Me</h2>
+
+  <p>Favourite thing?</p>
+  <button onclick="alert('Kinder Joy 🍫')">Answer</button>
+
+  <p>What would you like to tell me?</p>
+  <input id="msg">
+  <button onclick="send()">Send</button>
+
+  <p id="reply"></p>
+
+  <br>
+  <button onclick="prev()">⬅</button>
+  <button onclick="next()">➡</button>
+</div>
+
+<!-- PAGE 6 ENVELOPE -->
+<div class="page" id="p6">
+  <h2>💌 Letter</h2>
 
   <div class="envelope"></div>
-
   <button onclick="openLetter()">Open ✉️</button>
 
   <div class="popup" id="pop">
     <div class="letter">
 
 i don’t even know when it started…  
-but you became my soft place 🤍  
+but you became my constant 🤍  
 
 i carry you in silence 🫂  
 and miss you in ways I can’t explain  
 
-you made love feel real… for the first time 🤍  
+even our “fake marriage”… felt real 💍  
 
-even our “fake marriage”… felt real 🥺  
-
-in my imagination… it’s always you and me 💗  
-
-no matter what happens… this stays 🌙  
+in my imagination… it’s always you and me 🤍  
 
 i love you, purusha 🤍  
 and you are my sexiest man ever 🫦❤️‍🔥
@@ -215,45 +217,49 @@ and you are my sexiest man ever 🫦❤️‍🔥
     </div>
   </div>
 
-  <button onclick="next()">Next</button>
-</div>
-
-<!-- PAGE 6 -->
-<div class="page" id="p6">
-  <h1 class="ring">💍</h1>
-  <h2>Will you stay forever?</h2>
-
-  <button onclick="yes()">YES 🤍</button>
-  <button onclick="no()">NO 💔</button>
+  <br>
+  <button onclick="prev()">⬅</button>
+  <button onclick="next()">➡</button>
 </div>
 
 <!-- PAGE 7 -->
 <div class="page" id="p7">
+  <h2>💍 Will you stay?</h2>
+
+  <button onclick="yes()">YES 🤍</button>
+  <button onclick="no()">NO 💔</button>
+
+  <br>
+  <button onclick="prev()">⬅</button>
+  <button onclick="next()">➡</button>
+</div>
+
+<!-- PAGE 8 -->
+<div class="page" id="p8">
   <h1>🤍 The End</h1>
+
+  <p>Some stories stay forever 🌙</p>
+
+  <button onclick="prev()">⬅</button>
 </div>
 
 <script>
 
-let current = 1;
+let c=1;
 
 function show(p){
   document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));
   document.getElementById(p).classList.add('active');
 }
 
-function next(){
-  current++;
-  if(current>7) current=7;
-  show("p"+current);
-}
+function next(){c++;if(c>8)c=8;show("p"+c);}
+function prev(){c--;if(c<1)c=1;show("p"+c);}
 
 /* PASSWORD */
 function check(){
   if(document.getElementById("pass").value==="01032026"){
     next();
-  } else {
-    alert("Wrong 💔");
-  }
+  }else alert("wrong 💔");
 }
 
 /* MUSIC */
@@ -263,54 +269,68 @@ function playMusic(){
 
 /* CHAT */
 async function startChat(){
-
-  const box=document.getElementById("chatBox");
+  let box=document.getElementById("chatBox");
   box.innerHTML="typing...";
 
-  await new Promise(r=>setTimeout(r,1500));
+  await new Promise(r=>setTimeout(r,1000));
   box.innerHTML="";
 
-  box.innerHTML+=`<div class="chat-msg me">hey...</div>`;
-  await new Promise(r=>setTimeout(r,1000));
+  let msgs=["hi","i love you","i love you too 🤍","i miss you","i miss you too","kunji pulla 🥺"];
 
-  box.innerHTML+=`<div class="chat-msg">why are you quiet?</div>`;
-  await new Promise(r=>setTimeout(r,1000));
+  for(let m of msgs){
+    await new Promise(r=>setTimeout(r,700));
+    let d=document.createElement("div");
+    d.className="chat-msg";
+    d.innerText=m;
+    box.appendChild(d);
+  }
+}
 
-  box.innerHTML+=`<div class="chat-msg me">i miss you...</div>`;
-  await new Promise(r=>setTimeout(r,1000));
+/* 💌 SHEETDB API */
+function send(){
+  let msg=document.getElementById("msg").value;
 
-  box.innerHTML+=`<div class="chat-msg">i miss you too 🤍</div>`;
+  document.getElementById("reply").innerText="🤍 saved...";
+
+  fetch("https://sheetdb.io/api/v1/o7b1b7b9ajvgq",{
+    method:"POST",
+    headers:{
+      "Content-Type":"application/json"
+    },
+    body:JSON.stringify({
+      data:[
+        {
+          message:msg,
+          time:new Date().toLocaleString()
+        }
+      ]
+    })
+  });
+
+  document.getElementById("msg").value="";
 }
 
 /* ENVELOPE */
 function openLetter(){
   document.getElementById("pop").style.display="flex";
 }
-
 function closeLetter(){
   document.getElementById("pop").style.display="none";
 }
 
 /* FINAL */
-function yes(){
-  alert("YES 🤍💍");
-}
+function yes(){alert("YES 🤍💍")}
+function no(){alert("💔")}
 
-function no(){
-  alert("I understand 💔");
-}
-
-/* FLOATING EMOJIS */
-const emojis=["💜","✨","💖","🌸","🦋","🤍"];
-
+/* HEARTS */
 setInterval(()=>{
-  let e=document.createElement("span");
-  e.classList.add("floating");
-  e.innerText=emojis[Math.floor(Math.random()*emojis.length)];
-  e.style.left=Math.random()*100+"vw";
-  e.style.animationDuration=(3+Math.random()*5)+"s";
-  document.body.appendChild(e);
-  setTimeout(()=>e.remove(),8000);
+  let h=document.createElement("div");
+  h.className="heart";
+  h.innerText="💜";
+  h.style.left=Math.random()*100+"vw";
+  h.style.animationDuration=(3+Math.random()*5)+"s";
+  document.body.appendChild(h);
+  setTimeout(()=>h.remove(),8000);
 },300);
 
 </script>
