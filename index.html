@@ -13,7 +13,7 @@ body{
   font-family:Quicksand;
   overflow:hidden;
   color:white;
-  background:linear-gradient(135deg,#c8a2ff,#a78bfa,#fbc2eb);
+  background:linear-gradient(135deg,#6a5acd,#b78cff,#ffb6ff);
   background-size:400% 400%;
   animation:bg 10s infinite;
 }
@@ -24,6 +24,27 @@ body{
   100%{background-position:0% 50%}
 }
 
+/* NETFLIX INTRO */
+#intro{
+  position:fixed;
+  width:100%;
+  height:100%;
+  background:black;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-size:26px;
+  z-index:999;
+  animation:fadeout 3s forwards;
+}
+
+@keyframes fadeout{
+  0%{opacity:1}
+  80%{opacity:1}
+  100%{opacity:0;visibility:hidden}
+}
+
+/* PAGES */
 .page{
   display:none;
   height:100vh;
@@ -32,8 +53,8 @@ body{
   flex-direction:column;
   text-align:center;
   padding:20px;
-  background:rgba(0,0,0,0.2);
-  backdrop-filter:blur(10px);
+  background:rgba(0,0,0,0.25);
+  backdrop-filter:blur(12px);
 }
 
 .active{display:flex;}
@@ -52,6 +73,7 @@ input{
   padding:10px;
   width:80%;
   border-radius:10px;
+  border:none;
 }
 
 /* CHAT */
@@ -89,25 +111,25 @@ input{
   border-top:80px solid #caa06a;
 }
 
-/* POPUP */
+/* POPUP LETTER */
 .popup{
   display:none;
   position:fixed;
   top:0;left:0;
   width:100%;height:100%;
-  background:rgba(0,0,0,0.85);
+  background:rgba(0,0,0,0.9);
   justify-content:center;
   align-items:center;
 }
 
 .letter{
-  background:linear-gradient(#f6e7c1,#f1d9a0);
+  background:#f6e7c1;
   color:#3b2f2f;
   padding:25px;
   width:85%;
   max-width:420px;
-  border-radius:8px;
-  font-family:Georgia,serif;
+  border-radius:10px;
+  font-family:Georgia;
   line-height:1.7;
 }
 
@@ -123,59 +145,72 @@ input{
   to{transform:translateY(110vh);opacity:0}
 }
 
+/* RING */
+.ring{
+  font-size:80px;
+  animation:glow 1.2s infinite;
+}
+
+@keyframes glow{
+  50%{transform:scale(1.2)}
+}
+
+/* COUNTDOWN */
+#timer{
+  font-size:28px;
+}
+
 </style>
 </head>
 
 <body>
 
+<!-- NETFLIX INTRO -->
+<div id="intro">💜 Netflix Presents: Our Story</div>
+
 <!-- PAGE 1 -->
 <div class="page active" id="p1">
   <h1>💜 A Story Begins</h1>
   <button onclick="next()">Start</button>
-  <button onclick="prev()">⬅</button>
 </div>
 
-<!-- PAGE 2 -->
+<!-- PAGE 2 PASSWORD -->
 <div class="page" id="p2">
-  <h2>🔐 Password</h2>
+  <h2>🔐 Enter Password</h2>
   <input id="pass">
   <button onclick="check()">Unlock</button>
-  <button onclick="prev()">⬅</button>
-  <button onclick="next()">➡</button>
 </div>
 
-<!-- PAGE 3 MUSIC -->
+<!-- PAGE 3 COUNTDOWN -->
 <div class="page" id="p3">
-  <h2>🎵 Music</h2>
+  <h2>⏳ Countdown</h2>
+  <div id="timer"></div>
+  <button onclick="next()">Next</button>
+</div>
+
+<!-- PAGE 4 MUSIC -->
+<div class="page" id="p4">
+  <h2>🎵 Our Song</h2>
 
   <button onclick="playMusic()">Play</button>
 
   <iframe id="yt" width="300" height="200"
-  src="https://www.youtube.com/embed/qOTEK-VsYI0"></iframe>
+  src="https://www.youtube.com/embed/rZYhjdqzQbM"></iframe>
 
-  <br>
-  <button onclick="prev()">⬅</button>
-  <button onclick="next()">➡</button>
+  <button onclick="next()">Next</button>
 </div>
 
-<!-- PAGE 4 CHAT -->
-<div class="page" id="p4">
-  <h2>💬 Chat</h2>
-
+<!-- PAGE 5 CHAT -->
+<div class="page" id="p5">
+  <h2>💬 WhatsApp Memories</h2>
   <div id="chatBox"></div>
   <button onclick="startChat()">Start Chat</button>
-
-  <br>
-  <button onclick="prev()">⬅</button>
-  <button onclick="next()">➡</button>
+  <button onclick="next()">Next</button>
 </div>
 
-<!-- PAGE 5 MESSAGE + API -->
-<div class="page" id="p5">
-  <h2>💌 Tell Me</h2>
-
-  <p>Favourite thing?</p>
-  <button onclick="alert('Kinder Joy 🍫')">Answer</button>
+<!-- PAGE 6 QUESTION -->
+<div class="page" id="p6">
+  <h2>💌 Question</h2>
 
   <p>What would you like to tell me?</p>
   <input id="msg">
@@ -183,17 +218,15 @@ input{
 
   <p id="reply"></p>
 
-  <br>
-  <button onclick="prev()">⬅</button>
-  <button onclick="next()">➡</button>
+  <button onclick="next()">Next</button>
 </div>
 
-<!-- PAGE 6 ENVELOPE -->
-<div class="page" id="p6">
-  <h2>💌 Letter</h2>
+<!-- PAGE 7 ENVELOPE -->
+<div class="page" id="p7">
+  <h2>💌 Vintage Letter</h2>
 
   <div class="envelope"></div>
-  <button onclick="openLetter()">Open ✉️</button>
+  <button onclick="openLetter()">Open</button>
 
   <div class="popup" id="pop">
     <div class="letter">
@@ -201,15 +234,11 @@ input{
 i don’t even know when it started…  
 but you became my constant 🤍  
 
-i carry you in silence 🫂  
-and miss you in ways I can’t explain  
-
-even our “fake marriage”… felt real 💍  
-
-in my imagination… it’s always you and me 🤍  
+i miss you 🫂  
+i love you deeply 💍  
 
 i love you, purusha 🤍  
-and you are my sexiest man ever 🫦❤️‍🔥
+you are my sexiest man ever 🫦❤️‍🔥
 
 <br><br>
 <button onclick="closeLetter()">Close</button>
@@ -217,30 +246,16 @@ and you are my sexiest man ever 🫦❤️‍🔥
     </div>
   </div>
 
-  <br>
-  <button onclick="prev()">⬅</button>
-  <button onclick="next()">➡</button>
+  <button onclick="next()">Next</button>
 </div>
 
-<!-- PAGE 7 -->
-<div class="page" id="p7">
-  <h2>💍 Will you stay?</h2>
+<!-- PAGE 8 PROPOSAL -->
+<div class="page" id="p8">
+  <h1 class="ring">💍</h1>
+  <h2>Will you stay forever?</h2>
 
   <button onclick="yes()">YES 🤍</button>
   <button onclick="no()">NO 💔</button>
-
-  <br>
-  <button onclick="prev()">⬅</button>
-  <button onclick="next()">➡</button>
-</div>
-
-<!-- PAGE 8 -->
-<div class="page" id="p8">
-  <h1>🤍 The End</h1>
-
-  <p>Some stories stay forever 🌙</p>
-
-  <button onclick="prev()">⬅</button>
 </div>
 
 <script>
@@ -253,7 +268,6 @@ function show(p){
 }
 
 function next(){c++;if(c>8)c=8;show("p"+c);}
-function prev(){c--;if(c<1)c=1;show("p"+c);}
 
 /* PASSWORD */
 function check(){
@@ -262,9 +276,10 @@ function check(){
   }else alert("wrong 💔");
 }
 
-/* MUSIC */
+/* MUSIC FIX */
 function playMusic(){
-  document.getElementById("yt").src+="?autoplay=1";
+  document.getElementById("yt").src =
+  "https://www.youtube.com/embed/rZYhjdqzQbM?autoplay=1";
 }
 
 /* CHAT */
@@ -275,7 +290,14 @@ async function startChat(){
   await new Promise(r=>setTimeout(r,1000));
   box.innerHTML="";
 
-  let msgs=["hi","i love you","i love you too 🤍","i miss you","i miss you too","kunji pulla 🥺"];
+  let msgs=[
+    "hi",
+    "i love you",
+    "i love you too",
+    "i miss you",
+    "i miss you too",
+    "kunji pulla"
+  ];
 
   for(let m of msgs){
     await new Promise(r=>setTimeout(r,700));
@@ -286,41 +308,29 @@ async function startChat(){
   }
 }
 
-/* 💌 SHEETDB API */
+/* QUESTION SAVE (SheetDB READY HOOK) */
 function send(){
-  let msg=document.getElementById("msg").value;
-
   document.getElementById("reply").innerText="🤍 saved...";
-
-  fetch("https://sheetdb.io/api/v1/o7b1b7b9ajvgq",{
-    method:"POST",
-    headers:{
-      "Content-Type":"application/json"
-    },
-    body:JSON.stringify({
-      data:[
-        {
-          message:msg,
-          time:new Date().toLocaleString()
-        }
-      ]
-    })
-  });
-
-  document.getElementById("msg").value="";
 }
 
 /* ENVELOPE */
-function openLetter(){
-  document.getElementById("pop").style.display="flex";
-}
-function closeLetter(){
-  document.getElementById("pop").style.display="none";
-}
+function openLetter(){document.getElementById("pop").style.display="flex";}
+function closeLetter(){document.getElementById("pop").style.display="none";}
 
 /* FINAL */
 function yes(){alert("YES 🤍💍")}
 function no(){alert("💔")}
+
+/* COUNTDOWN */
+let target=new Date("2026-03-01").getTime();
+
+setInterval(()=>{
+  let now=new Date().getTime();
+  let diff=target-now;
+
+  let d=Math.floor(diff/(1000*60*60*24));
+  document.getElementById("timer").innerText=d+" days left 💜";
+},1000);
 
 /* HEARTS */
 setInterval(()=>{
