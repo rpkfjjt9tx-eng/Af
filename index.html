@@ -46,16 +46,35 @@ button{
   font-weight:bold;
 }
 
-/* CHAT */
+/* CHAT UI (WhatsApp style) */
+.chat-box{
+  width:90%;
+  max-width:400px;
+  height:300px;
+  overflow-y:auto;
+  background:#0b141a;
+  border-radius:10px;
+  padding:10px;
+}
+
+.chat-header{
+  background:#202c33;
+  padding:10px;
+  border-radius:10px 10px 0 0;
+  margin-bottom:5px;
+}
+
 .chat-msg{
-  background:#dcf8c6;
-  color:black;
   padding:10px;
   margin:6px;
   border-radius:10px;
-  max-width:80%;
+  max-width:75%;
   animation:fade 0.3s ease;
+  color:black;
 }
+
+.left{background:#dcf8c6; margin-right:auto;}
+.right{background:#fff; margin-left:auto;}
 
 @keyframes fade{
   from{opacity:0;transform:translateY(10px)}
@@ -68,51 +87,37 @@ button{
   position:fixed;
   width:100%;
   height:100%;
-  top:0;
-  left:0;
   background:rgba(0,0,0,0.92);
   justify-content:center;
   align-items:center;
-  padding:10px;
 }
 
 .letter{
   background:#f6e7c1;
   color:#3b2f2f;
-  padding:25px;
+  padding:20px;
   width:92%;
   max-width:520px;
-  height:88vh;
+  height:85vh;
   overflow-y:auto;
-  border-radius:16px;
-  line-height:1.9;
-  font-size:15px;
+  border-radius:15px;
   white-space:pre-wrap;
-  position:relative;
+  line-height:1.8;
 }
 
-/* bottom buttons */
+/* BUTTONS */
 .bottomBtns{
-  margin-top:15px;
-}
-
-.closeBtn,.submitBtn{
-  width:100%;
-  padding:12px;
   margin-top:10px;
-  border:none;
-  border-radius:10px;
-  font-weight:bold;
 }
 
-.closeBtn{background:#6a5acd;color:white;}
-.submitBtn{background:#ff4d8d;color:white;}
+.closeBtn{background:#6a5acd;}
+.submitBtn{background:#ff4d8d;}
 
 /* RING */
 @keyframes ringPop{
-  0%{transform:translate(-50%,-50%) scale(0);opacity:0}
-  50%{transform:translate(-50%,-50%) scale(1.5);opacity:1}
-  100%{transform:translate(-50%,-50%) scale(0);opacity:0}
+  0%{transform:scale(0)}
+  50%{transform:scale(1.5)}
+  100%{transform:scale(0)}
 }
 </style>
 </head>
@@ -139,47 +144,62 @@ button{
   <button onclick="next()">Next</button>
 </div>
 
-<!-- PAGE 4 -->
+<!-- PAGE 4 SONG 1 -->
 <div class="page" id="p4">
-  <h2>Song 1</h2>
-  <iframe width="300" height="200" src="https://www.youtube.com/embed/rZYhjdqzQbM"></iframe>
+  <h2>🎵 Song 1 - Our Memory</h2>
+  <iframe width="300" height="180" src="https://www.youtube.com/embed/rZYhjdqzQbM"></iframe>
   <button onclick="next()">Next</button>
 </div>
 
-<!-- PAGE 5 -->
+<!-- PAGE 5 SONG 2 -->
 <div class="page" id="p5">
-  <h2>Song 2 💫</h2>
-  <iframe width="300" height="200" src="https://www.youtube.com/embed/5PuYFzMTFOY"></iframe>
+  <h2>🎵 Song 2 - Feelings</h2>
+  <iframe width="300" height="180" src="https://www.youtube.com/embed/5PuYFzMTFOY"></iframe>
   <button onclick="next()">Next</button>
 </div>
 
 <!-- PAGE 6 CHAT -->
 <div class="page" id="p6">
-  <h2>💬 Chat</h2>
+
+  <div class="chat-header">
+    💚 Sumi dhatha • online
+  </div>
+
+  <div class="chat-box" id="chat"></div>
   <button onclick="chat()">Start Chat</button>
-  <div id="chat"></div>
   <button onclick="next()">Next</button>
+
 </div>
 
 <!-- PAGE 7 LETTER -->
 <div class="page" id="p7">
   <h2>💌 Letter</h2>
-
-  <button onclick="openLetter()">Open 💌</button>
+  <button onclick="openLetter()">Open Letter</button>
 
   <div class="popup" id="pop">
     <div class="letter">
 
-i don’t even know when it started, but somewhere between the quiet moments and the chaos of my days, you became my constant… the kind of feeling that doesn’t need loud words to exist 🤍 i carry you in my thoughts without trying, and i miss you in ways i can’t always explain. some days feel heavier without you, like something important is missing, and no distraction really fixes it 🫶
+i don’t even know when it started, but somewhere between the quiet moments and the chaos of my days, you became my constant… 🤍  
+i carry you in my thoughts without trying, and i miss you in ways i can’t explain 🫶  
 
-and i know you have your own world, your own people, your family… and that’s okay. it doesn’t change what i feel. the love you show me, the way you’re there for me in your own way — it’s enough for my heart 🫀
+and i know you have your own world… but it doesn’t change what i feel 🫀  
+the love you show me is enough for my heart 🤍  
 
-the love you gave me and the way you treat me… i’ve honestly never experienced anything like it in my life 🤍
+you made me feel something i never felt before… pure, real, safe 🫶  
 
-and that “fake” marriage we joked about… maybe it was just a moment to you, but for me it felt real 🤍
+in my imagination… it’s you and me in a quiet little house 🥺🫂  
+simple life, soft moments, our baby, our world 🤍  
+
+sometimes i still can’t believe how someone can feel this gentle in my heart 🌙💫  
+
+i just hope everything becomes warm again one day 💫  
 
 i love you so much, purusha 🤍  
-and you are my sexiest man ever 🫦❤️‍🔥
+you mean more than words 🫶  
+
+and you are my sexiest man ever 🫦❤️‍🔥  
+
+💖 I LOVE YOU PURUSHA 💖
 
 <div class="bottomBtns">
 <button class="closeBtn" onclick="closeLetter()">Close</button>
@@ -190,7 +210,7 @@ and you are my sexiest man ever 🫦❤️‍🔥
   </div>
 </div>
 
-<!-- PAGE 8 -->
+<!-- PAGE 8 FINAL -->
 <div class="page" id="p8">
   <h1>💍 Will you stay forever?</h1>
   <button onclick="alert('YES 🤍💍')">YES</button>
@@ -214,21 +234,27 @@ async function chat(){
   let box=document.getElementById("chat");
   box.innerHTML="";
 
-  function add(t,side){
+  function add(text,side){
     let d=document.createElement("div");
-    d.className="chat-msg";
-    d.style.marginLeft = side==="right" ? "auto" : "0";
-    d.innerText=t;
+    d.className="chat-msg "+side;
+    d.innerText=text;
     box.appendChild(d);
+    box.scrollTop=box.scrollHeight;
   }
 
   add("💗 hi iphone","left");
   await new Promise(r=>setTimeout(r,800));
+
   add("❤️ hi","right");
   await new Promise(r=>setTimeout(r,800));
+
   add("💗 iloveyou da 🫶","left");
   await new Promise(r=>setTimeout(r,800));
+
   add("❤️ love you more 💚","right");
+  await new Promise(r=>setTimeout(r,800));
+
+  add("💗 miss you 🥺","left");
 }
 
 /* LETTER */
@@ -240,31 +266,31 @@ function closeLetter(){
   pop.style.display="none";
 }
 
-/* SUBMIT FLOW */
+/* SUBMIT ANIMATION FLOW */
 function submitLove(){
 
-  let typing = document.createElement("div");
-  typing.innerText = "💬 he is reading your letter...";
-  typing.style.position="fixed";
-  typing.style.bottom="20px";
-  typing.style.left="50%";
-  typing.style.transform="translateX(-50%)";
-  typing.style.background="#111";
-  typing.style.padding="10px";
-  typing.style.borderRadius="10px";
-  document.body.appendChild(typing);
+  let t=document.createElement("div");
+  t.innerText="💬 he is reading your letter...";
+  t.style.position="fixed";
+  t.style.top="20px";
+  t.style.left="50%";
+  t.style.transform="translateX(-50%)";
+  t.style.background="#000";
+  t.style.padding="10px";
+  t.style.borderRadius="10px";
+  document.body.appendChild(t);
 
   setTimeout(()=>{
 
-    typing.remove();
+    t.remove();
 
-    let ring = document.createElement("div");
+    let ring=document.createElement("div");
     ring.innerHTML="💍";
     ring.style.position="fixed";
     ring.style.top="50%";
     ring.style.left="50%";
+    ring.style.fontSize="80px";
     ring.style.transform="translate(-50%,-50%)";
-    ring.style.fontSize="70px";
     ring.style.animation="ringPop 1s ease";
     document.body.appendChild(ring);
 
@@ -273,28 +299,8 @@ function submitLove(){
     fetch("https://sheetdb.io/api/v1/YOUR_SHEETDB_ID",{
       method:"POST",
       headers:{"Content-Type":"application/json"},
-      body:JSON.stringify({data:{msg:"love sent 💜",time:new Date()}})
+      body:JSON.stringify({data:{msg:"I love you Purusha",time:new Date()}})
     });
-
-    let success=document.createElement("div");
-    success.innerText="💖 Sent Successfully 💖";
-    success.style.position="fixed";
-    success.style.top="0";
-    success.style.left="0";
-    success.style.width="100%";
-    success.style.height="100%";
-    success.style.background="rgba(0,0,0,0.9)";
-    success.style.display="flex";
-    success.style.justifyContent="center";
-    success.style.alignItems="center";
-    success.style.fontSize="22px";
-
-    document.body.appendChild(success);
-
-    setTimeout(()=>{
-      success.style.opacity="0";
-      setTimeout(()=>success.remove(),1000);
-    },2000);
 
   },2000);
 }
