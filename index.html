@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>💜 A Story For You</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;500;700&display=swap');
+
+body{
+  margin:0;
+  font-family:Quicksand;
+  background:black;
+  color:white;
+  overflow:hidden;
+}
+
+.page{
+  display:none;
+  height:100vh;
+  width:100%;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+  text-align:center;
+  padding:20px;
+}
+
+.active{display:flex;}
+
+button{
+  padding:12px 18px;
+  margin:10px;
+  border:none;
+  border-radius:25px;
+  background:#b78cff;
+  color:white;
+  font-weight:bold;
+}
+
+.glow{
+  font-size:22px;
+  text-shadow:0 0 10px #b78cff;
+}
+
+.typing{
+  white-space:pre-wrap;
+  border-right:2px solid white;
+}
+
+canvas{
+  position:fixed;
+  top:0;left:0;
+  pointer-events:none;
+}
+</style>
+</head>
+
+<body>
+
+<canvas id="fx"></canvas>
+
+<!-- PAGE 1 -->
+<div class="page active" id="p1">
+  <h1 class="glow">💜 A Story About Us</h1>
+  <button onclick="next()">Start</button>
+</div>
+
+<!-- PAGE 2 PASSWORD -->
+<div class="page" id="p2">
+  <h2 class="glow">Enter the moment 💋</h2>
+  <input id="pass" type="password" placeholder="••••••">
+  <button onclick="check()">Unlock</button>
+</div>
+
+<!-- PAGE 3 -->
+<div class="page" id="p3">
+  <h2 class="glow">Our Sound 🎵</h2>
+  <button onclick="next()">Continue</button>
+</div>
+
+<!-- PAGE 4 -->
+<div class="page" id="p4">
+  <h2 class="glow">Something I never said…</h2>
+  <div id="type" class="typing"></div>
+  <button onclick="typeMsg()">Reveal</button>
+  <button onclick="next()">Next</button>
+</div>
+
+<!-- PAGE 5 LETTER -->
+<div class="page" id="p5">
+  <h2 class="glow">A Letter for You 💌</h2>
+  <button onclick="next()">Next</button>
+</div>
+
+<!-- PAGE 6 -->
+<div class="page" id="p6">
+  <h1 class="glow">💍</h1>
+  <h2>Will you stay… forever?</h2>
+
+  <button onclick="yes()">YES 🤍</button>
+</div>
+
+<!-- PAGE 7 -->
+<div class="page" id="p7">
+  <h1>🤍</h1>
+  <h2>And that was the beginning…</h2>
+</div>
+
+<script>
+
+/* 🔗 SheetDB API */
+const scriptURL = "https://sheetdb.io/api/v1/o7b1b7b9ajvgq";
+
+/* PAGE SYSTEM */
+let current = 1;
+
+function show(p){
+  document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));
+  document.getElementById(p).classList.add('active');
+}
+
+function next(){
+  current++;
+  if(current > 7) current = 7;
+  show('p'+current);
+}
+
+/* PASSWORD CHECK */
+function check(){
+
+  let pass = document.getElementById("pass").value;
+
+  fetch(scriptURL,{
+    method:"POST",
+    headers:{ "Content-Type":"application/json" },
+    body:JSON.stringify({
+      data:{
+        event:"PASSWORD_CHECK",
+        passwordStatus: pass === "01032026" ? "CORRECT" : "WRONG"
+      }
+    })
+  });
+
+  if(pass === "01032026"){
+    next();
+  } else {
+    alert("not yet… 🥺");
+  }
+}
+
+/* TYPE MESSAGE */
+function typeMsg(){
+  let text = `i never planned this…
+
+but you became my soft place 🤍`;
+
+  let i = 0;
+  let el = document.getElementById("type");
+  el.innerHTML = "";
+
+  let t = setInterval(()=>{
+    el.innerHTML += text[i];
+    i++;
+    if(i >= text.length) clearInterval(t);
+  }, 50);
+}
+
+/* YES BUTTON */
+function yes(){
+
+  fetch(scriptURL,{
+    method:"POST",
+    headers:{ "Content-Type":"application/json" },
+    body:JSON.stringify({
+      data:{
+        event:"FINAL_ANSWER",
+        answer:"YES"
+      }
+    })
+  });
+
+  boom();
+  alert("YES 🤍💍");
+}
+
+/* FIREWORKS */
+const c=document.getElementById("fx");
+const ctx=c.getContext("2d");
+c.width=window.innerWidth;
+c.height=window.innerHeight;
+
+let particles=[];
+
+function boom(){
+  for(let i=0;i<120;i++){
+    particles.push({
+      x:window.innerWidth/2,
+      y:window.innerHeight/2,
+      vx:(Math.random()-0.5)*8,
+      vy:(Math.random()-0.5)*8,
+      life:100
+    });
+  }
+}
+
+function draw(){
+  ctx.clearRect(0,0,c.width,c.height);
+
+  particles.forEach((p,i)=>{
+    p.x+=p.vx;
+    p.y+=p.vy;
+    p.life--;
+
+    ctx.fillStyle="pink";
+    ctx.fillRect(p.x,p.y,2,2);
+
+    if(p.life<=0) particles.splice(i,1);
+  });
+
+  requestAnimationFrame(draw);
+}
+draw();
+
+</script>
+
+</body>
+</html>
