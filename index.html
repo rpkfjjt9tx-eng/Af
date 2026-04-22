@@ -52,7 +52,7 @@ input{
   border-radius:10px;
 }
 
-.chat-msg{
+..chat-msg{
   background:#dcf8c6;
   color:black;
   padding:10px;
@@ -139,20 +139,36 @@ input{
 </div>
 
 <!-- PAGE 5 -->
+<!-- PAGE 5 -->
 <div class="page" id="p5">
-  <h2>Favourite Thing</h2>
-  <button onclick="alert('Kinder Joy 🍫')">Answer</button>
+  <h2>💗 What is my favourite thing?</h2>
+
+  <input id="favInput" placeholder="Type your answer... 💭">
+
+  <button onclick="saveFav()">Submit 💌</button>
+
+  <p id="favResult"></p>
+
   <button onclick="next()">Next</button>
 </div>
 
 <!-- PAGE 6 -->
+<!-- PAGE 6 - WHATSAPP CHAT -->
 <div class="page" id="p6">
-  <h2>Chat Memories</h2>
-  <button onclick="chat()">Start Chat</button>
-  <div id="chat"></div>
+
+  <div class="wa-header">
+    <div class="name">Sumii Dhatha 💚</div>
+    <div class="status">🟢 online</div>
+  </div>
+
+  <div id="waChat" class="wa-chat"></div>
+
+  <button onclick="startWAChat()">Start Chat 💬</button>
   <button onclick="next()">Next</button>
+
 </div>
 
+<!-- PAGE 7 LETTER -->
 <!-- PAGE 7 LETTER -->
 <div class="page" id="p7">
   <h2>💌 Letter</h2>
@@ -162,7 +178,27 @@ input{
 
   <div class="popup" id="pop">
     <div class="letter">
-FULL LOVE LETTER (your same text remains here unchanged)
+
+i don’t even know when it started, but somewhere between the quiet moments and the chaos of my days, you became my constant… the kind of feeling that doesn’t need loud words to exist 🤍 i carry you in my thoughts without trying, and i miss you in ways i can’t always explain. some days feel heavier without you, like something important is missing, and no distraction really fixes it 🫶
+
+and i know you have your own world, your own people, your family… and that’s okay. it doesn’t change what i feel. the love you show me, the way you’re there for me in your own way — it’s enough for my heart 🫀 i don’t need more than what’s real between us.
+
+the love you gave me and the way you treat me… i’ve honestly never experienced anything like it in my life 🤍 it feels so pure, so real, like something i didn’t even know i needed until you came into my world. you made me feel seen, understood, and cared for in a way that stays with me even in your absence 🫶
+
+and that “fake” marriage we joked about… maybe it was just a moment to you, something light, something playful — but for me, it felt different. in my heart, it felt like my first. not because of the words, but because of the way i feel about you. it wasn’t pretend to me… it was something soft, something real that i quietly held onto 🤍
+
+in my imagination… it’s you and me in a quiet little house, filled with soft moments and laughter, and a tiny baby who has pieces of both of us 🥺🫂 it’s not even about a perfect life… just simple things — waking up next to you, small talks, shared smiles, holding our baby together like we created our own little world 🤍
+
+maybe it’s just my thoughts running away sometimes… but in that space, everything feels calm, safe, and complete — because it’s you
+
+sometimes i sit and think about it, and it still feels unreal… how someone can be this gentle with my heart. no matter what happens, that feeling is something i’ll always hold onto, because it changed me in the softest, most beautiful way 🌙💫
+
+i just hope these days pass softly… that whatever distance or silence is between us fades into something warm again 🌙 because what i feel for you isn’t temporary, it’s the kind that stays even when things aren’t perfect. i don’t need everything to be okay right now… i just need the hope that one day, it will be — and that somehow, we’ll find our way back to each other again 💫
+
+i love you so much, purusha 🤍 you mean more to me than i can ever put into words… in every little moment, in every quiet thought, it’s always you 🫶  
+
+and you are my sexiest man ever 🫦❤️‍🔥
+
     </div>
   </div>
 </div>
@@ -204,26 +240,41 @@ function check(){
   if(pass.value==="01032026") next();
 }
 
-/* CHAT */
-async function chat(){
-  let box=document.getElementById("chat");
-  box.innerHTML="";
+/* CHAT */async function chat(){
 
-  function add(t,s){
-    let d=document.createElement("div");
-    d.className="chat-msg";
-    d.style.marginLeft=s?"auto":"0";
-    d.innerText=t;
+  let box = document.getElementById("chat");
+  box.innerHTML = "";
+
+  function add(text, side){
+    let d = document.createElement("div");
+    d.className = "bubble " + side;
+    d.innerText = text;
     box.appendChild(d);
+    box.scrollTop = box.scrollHeight;
   }
 
-  add("💗 hi iphone",0);
-  await new Promise(r=>setTimeout(r,800));
-  add("❤️ hi",1);
-  await new Promise(r=>setTimeout(r,800));
-  add("💗 iloveyou",0);
-  await new Promise(r=>setTimeout(r,800));
-  add("❤️ love you more",1);
+  function wait(ms){
+    return new Promise(r => setTimeout(r, ms));
+  }
+
+  // 💚 CHAT FLOW
+  add("💗 hi iphone", "left");
+  await wait(800);
+
+  add("❤️ hi", "right");
+  await wait(800);
+
+  add("💗 iloveyou da 🫶", "left");
+  await wait(800);
+
+  add("❤️ love you more 💚", "right");
+  await wait(800);
+
+  add("💗 miss you kunji pulla 🥺", "left");
+  await wait(800);
+
+  add("❤️ always here 💚", "right");
+
 }
 
 /* LETTER */
